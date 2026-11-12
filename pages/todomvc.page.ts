@@ -49,12 +49,12 @@ export class TodoMvcPage {
   }
 
   async edit(oldText: string, newText: string) {
-    const item = this.todoItem(oldText);
-    await item.getByText(oldText).dblclick();
-    const editBox = item.getByRole('textbox');
-    await editBox.fill(newText);
-    await editBox.press('Enter');
-  }
+  const row = this.page.getByRole('listitem').filter({ hasText: oldText });
+  await row.getByText(oldText).dblclick();
+  const editBox = row.getByRole('textbox');
+  await editBox.fill(newText);
+  await editBox.press('Enter');
+}
 
   async remove(text: string) {
     const item = this.todoItem(text);
